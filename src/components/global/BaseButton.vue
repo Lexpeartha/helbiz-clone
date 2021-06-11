@@ -1,14 +1,15 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-  </div>
+  <button class="bg-black text-white p-4">
+    <slot>Default button text</slot>
+  </button>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'Home',
-  components: {},
+  setup() {
+    return {};
+  },
 });
 </script>
