@@ -12,6 +12,7 @@
         flex
         items-center
         justify-between
+        z-40
       "
     >
       <router-link class="tracking-widest font-bold" to="/"
@@ -30,13 +31,14 @@
           text-xs
         "
       >
-        <router-link
+        <a
           v-for="(item, $i) in navigationItems"
+          @click="handleNavItemClick(item)"
+          class="cursor-pointer"
           :key="$i"
-          :to="item.route.path"
         >
           {{ item.text }}
-        </router-link>
+        </a>
         <BaseButton>Login</BaseButton>
       </nav>
       <img
@@ -45,12 +47,27 @@
         :src="require('@/assets/icons/hamburger.svg')"
         alt="Hamburger"
       />
+      <teleport
+        :disabled="!isAboutMenuOpen"
+        v-if="isAboutMenuOpen"
+        to="#fullscreen-window"
+      >
+        <AboutMenu />
+      </teleport>
+      <teleport
+        :disabled="!isMobileNavOpen"
+        v-if="isMobileNavOpen"
+        to="#fullscreen-window"
+      ></teleport>
     </div>
   </header>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+import AboutMenu from './AboutMenu.vue';
 
 interface INavigationItem {
   route: {
@@ -62,7 +79,33 @@ interface INavigationItem {
 }
 
 export default defineComponent({
+  components: {
+    AboutMenu,
+  },
   setup() {
+    const isAboutMenuOpen = ref(false);
+    const isMobileNavOpen = ref(false);
+
+    const openAboutMenu = () => {
+      isAboutMenuOpen.value = true;
+    };
+
+    const closeAboutMenu = () => {
+      isAboutMenuOpen.value = false;
+    };
+
+    const toggleAboutMenu = () => {
+      isAboutMenuOpen.value ? closeAboutMenu() : openAboutMenu();
+    };
+
+    const openMobileNav = () => {
+      isMobileNavOpen.value = true;
+    };
+
+    const closeMobileNav = () => {
+      isMobileNavOpen.value = false;
+    };
+
     const navigationItems: INavigationItem[] = [
       {
         route: {
@@ -98,16 +141,27 @@ export default defineComponent({
           name: '',
         },
         text: 'About',
+        callback: toggleAboutMenu,
       },
     ];
 
-    const openMobileNav = () => {
-      console.log('Opening mobile nav!');
+    const router = useRouter();
+
+    const handleNavItemClick = (item: INavigationItem) => {
+      if (item.callback) {
+        item.callback();
+      }
+
+      router.push(item.route.path);
     };
 
     return {
-      navigationItems,
+      isAboutMenuOpen,
+      isMobileNavOpen,
       openMobileNav,
+      closeMobileNav,
+      navigationItems,
+      handleNavItemClick,
     };
   },
 });

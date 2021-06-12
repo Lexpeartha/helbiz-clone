@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/images/hero-image.jpg" />
+  <div class="bg-red-800 text-white absolute h-screen w-screen z-30">
+    Helbiz test
   </div>
 </template>
 
@@ -8,7 +8,10 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'Home',
-  components: {},
+  setup() {
+    return {};
+  },
 });
 </script>
+
+<style></style>
