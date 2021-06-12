@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-red-500 w-full grid">
+  <header class="fixed top-0 right-0 left-0 w-full grid">
     <div
       class="
         lg:container

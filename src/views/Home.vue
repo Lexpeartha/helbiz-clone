@@ -1,14 +1,18 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/images/hero-image.jpg" />
+    <HomeHero />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 
+import HomeHero from '@/components/home/TheHero.vue';
+
 export default defineComponent({
   name: 'Home',
-  components: {},
+  components: {
+    HomeHero,
+  },
 });
 </script>
