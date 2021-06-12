@@ -10,7 +10,7 @@
       left-0
       h-screen
       w-screen
-      z-30
+      z-20
     "
   >
     <div class="lg:container xl:px-24 lg:px-10 py-10 px-6 mx-auto">

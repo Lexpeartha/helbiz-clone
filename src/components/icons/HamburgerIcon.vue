@@ -1,8 +1,8 @@
 <template>
   <svg
-    width="18"
-    height="12"
-    viewBox="0 0 18 12"
+    width="24"
+    height="24"
+    viewBox="0 0 18 14"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     v-bind="$attrs"

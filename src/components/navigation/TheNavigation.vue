@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-white fixed top-0 right-0 left-0 w-full grid z-40">
+  <header class="bg-white fixed top-0 right-0 left-0 w-full grid z-50">
     <div
       class="
         lg:container
@@ -12,9 +12,10 @@
         flex
         items-center
         justify-between
+        z-40
       "
     >
-      <router-link class="tracking-widest font-bold" to="/"
+      <router-link class="tracking-wider font-bold" to="/"
         >H&nbsp;E&nbsp;L&nbsp;B&nbsp;I&nbsp;Z</router-link
       >
       <nav
@@ -40,10 +41,26 @@
         </a>
         <BaseButton>Login</BaseButton>
       </nav>
-      <HamburgerIcon
-        class="block lg:hidden h-4 cursor-pointer"
-        @click="openMobileNav"
-      />
+      <div>
+        <BaseButton
+          class="justify-self-end mr-1 text-sm px-2 py-1"
+          v-if="isMobileNavOpen"
+        >
+          Login
+        </BaseButton>
+        <transition mode="out-in">
+          <HamburgerIcon
+            v-if="!isMobileNavOpen"
+            class="block lg:hidden h-6 cursor-pointer z-50"
+            @click="openMobileNav"
+          />
+          <CloseIcon
+            v-else
+            class="cursor-pointer float-right h-10 z-50"
+            @click="closeMobileNav"
+          />
+        </transition>
+      </div>
 
       <teleport
         :disabled="!isAboutMenuOpen"
@@ -67,7 +84,7 @@
         v-if="isMobileNavOpen"
         to="#fullscreen-window"
       >
-        <div></div>
+        <MobileNav @close="closeMobileNav" v-if="isMobileNavOpen" />
       </teleport>
     </div>
   </header>
@@ -78,7 +95,9 @@ import { defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import AboutMenu from './AboutMenu.vue';
+import MobileNav from './MobileNav.vue';
 import HamburgerIcon from '../icons/HamburgerIcon.vue';
+import CloseIcon from '../icons/CloseIcon.vue';
 
 interface INavigationItem {
   route: {
@@ -93,6 +112,8 @@ export default defineComponent({
   components: {
     AboutMenu,
     HamburgerIcon,
+    CloseIcon,
+    MobileNav,
   },
   setup() {
     const isAboutMenuOpen = ref(false);
