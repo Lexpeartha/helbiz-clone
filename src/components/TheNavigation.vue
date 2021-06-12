@@ -2,11 +2,13 @@
   <header class="bg-red-500 w-full grid">
     <div
       class="
-        container
+        lg:container
         xl:px-24
-        lg:p-10
-        mx-auto
+        lg:px-10
+        px-6
+        lg:mx-auto
         h-16
+        w-full
         flex
         items-center
         justify-between
@@ -19,6 +21,7 @@
         class="
           hidden
           lg:flex
+          items-center
           xl:gap-24
           lg:gap-10
           tracking-wide
@@ -34,7 +37,14 @@
         >
           {{ item.text }}
         </router-link>
+        <BaseButton>Login</BaseButton>
       </nav>
+      <img
+        class="block lg:hidden h-4 cursor-pointer"
+        @click="openMobileNav"
+        :src="require('@/assets/icons/hamburger.svg')"
+        alt="Hamburger"
+      />
     </div>
   </header>
 </template>
@@ -53,12 +63,6 @@ interface INavigationItem {
 
 export default defineComponent({
   setup() {
-    // Mobility
-    // Helbiz Kitchen
-    // Helbiz Live
-    // Investors
-    // Unlimited
-    // About
     const navigationItems: INavigationItem[] = [
       {
         route: {
@@ -97,8 +101,13 @@ export default defineComponent({
       },
     ];
 
+    const openMobileNav = () => {
+      console.log('Opening mobile nav!');
+    };
+
     return {
       navigationItems,
+      openMobileNav,
     };
   },
 });

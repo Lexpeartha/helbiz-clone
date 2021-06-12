@@ -1,6 +1,8 @@
 <template>
-  <TheNavigation />
-  <router-view />
+  <div class="font-plex">
+    <TheNavigation />
+    <router-view />
+  </div>
 </template>
 
 <script lang="ts">
@@ -15,8 +17,4 @@ export default defineComponent({
 });
 </script>
 
-<style>
-* {
-  @apply font-plex;
-}
-</style>
+<style></style>

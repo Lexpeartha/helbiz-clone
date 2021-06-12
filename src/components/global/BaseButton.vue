@@ -1,5 +1,5 @@
 <template>
-  <button class="bg-black text-white p-4">
+  <button class="bg-black text-white font-bold tracking-wide py-3 px-6">
     <slot>Default button text</slot>
   </button>
 </template>
