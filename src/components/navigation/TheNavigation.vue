@@ -112,6 +112,13 @@ export default defineComponent({
       isMobileNavOpen.value = false;
     };
 
+    const closeAll = () => {
+      closeAboutMenu();
+      closeMobileNav();
+    };
+
+    window.addEventListener('resize', closeAll);
+
     const navigationItems: INavigationItem[] = [
       {
         route: {
@@ -166,6 +173,7 @@ export default defineComponent({
       isMobileNavOpen,
       openMobileNav,
       closeMobileNav,
+      closeAll,
       navigationItems,
       handleNavItemClick,
     };
