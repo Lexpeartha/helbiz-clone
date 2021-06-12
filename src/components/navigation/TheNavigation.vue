@@ -1,5 +1,5 @@
 <template>
-  <header class="fixed top-0 right-0 left-0 w-full grid">
+  <header class="fixed top-0 right-0 left-0 w-full grid z-40">
     <div
       class="
         lg:container
@@ -12,7 +12,6 @@
         flex
         items-center
         justify-between
-        z-40
       "
     >
       <router-link class="tracking-widest font-bold" to="/"
@@ -47,13 +46,20 @@
         :src="require('@/assets/icons/hamburger.svg')"
         alt="Hamburger"
       />
-      <teleport
-        :disabled="!isAboutMenuOpen"
-        v-if="isAboutMenuOpen"
-        to="#fullscreen-window"
-      >
-        <AboutMenu />
+
+      <teleport :disabled="!isAboutMenuOpen" to="#fullscreen-window">
+        <!-- <transition
+          enter-active-class="transform transition duration-300 ease-in-out"
+          enter-class="-translate-y-1/2 scale-y-0 opacity-0"
+          enter-to-class="translate-y-0 scale-y-100 opacity-100"
+          leave-active-class="transform transition duration-300 ease-in-out"
+          leave-class="translate-y-0 scale-y-100 opacity-100"
+          leave-to-class="-translate-y-1/2 scale-y-0 opacity-0"
+        >
+        </transition> -->
+        <AboutMenu v-if="isAboutMenuOpen" />
       </teleport>
+
       <teleport
         :disabled="!isMobileNavOpen"
         v-if="isMobileNavOpen"
