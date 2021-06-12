@@ -1,5 +1,5 @@
 <template>
-  <header class="fixed top-0 right-0 left-0 w-full grid z-40">
+  <header class="bg-white fixed top-0 right-0 left-0 w-full grid z-40">
     <div
       class="
         lg:container
@@ -40,14 +40,16 @@
         </a>
         <BaseButton>Login</BaseButton>
       </nav>
-      <img
+      <HamburgerIcon
         class="block lg:hidden h-4 cursor-pointer"
         @click="openMobileNav"
-        :src="require('@/assets/icons/hamburger.svg')"
-        alt="Hamburger"
       />
 
-      <teleport :disabled="!isAboutMenuOpen" to="#fullscreen-window">
+      <teleport
+        :disabled="!isAboutMenuOpen"
+        v-if="isAboutMenuOpen"
+        to="#fullscreen-window"
+      >
         <!-- <transition
           enter-active-class="transform transition duration-300 ease-in-out"
           enter-class="-translate-y-1/2 scale-y-0 opacity-0"
@@ -57,14 +59,16 @@
           leave-to-class="-translate-y-1/2 scale-y-0 opacity-0"
         >
         </transition> -->
-        <AboutMenu v-if="isAboutMenuOpen" />
+        <AboutMenu @close="closeAboutMenu" v-if="isAboutMenuOpen" />
       </teleport>
 
       <teleport
         :disabled="!isMobileNavOpen"
         v-if="isMobileNavOpen"
         to="#fullscreen-window"
-      ></teleport>
+      >
+        <div></div>
+      </teleport>
     </div>
   </header>
 </template>
@@ -74,6 +78,7 @@ import { defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import AboutMenu from './AboutMenu.vue';
+import HamburgerIcon from '../icons/HamburgerIcon.vue';
 
 interface INavigationItem {
   route: {
@@ -87,6 +92,7 @@ interface INavigationItem {
 export default defineComponent({
   components: {
     AboutMenu,
+    HamburgerIcon,
   },
   setup() {
     const isAboutMenuOpen = ref(false);
@@ -173,6 +179,7 @@ export default defineComponent({
       isMobileNavOpen,
       openMobileNav,
       closeMobileNav,
+      closeAboutMenu,
       closeAll,
       navigationItems,
       handleNavItemClick,
