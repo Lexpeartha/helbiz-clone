@@ -43,7 +43,7 @@
       </nav>
       <div>
         <BaseButton
-          class="justify-self-end mr-1 text-sm px-2 py-1"
+          class="justify-self-end mr-4 text-sm"
           v-if="isMobileNavOpen"
         >
           Login
@@ -56,6 +56,7 @@
           />
           <CloseIcon
             v-else
+            :isThin="true"
             class="cursor-pointer float-right h-10 z-50"
             @click="closeMobileNav"
           />

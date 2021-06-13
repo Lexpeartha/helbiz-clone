@@ -1,5 +1,18 @@
 <template>
   <svg
+    v-if="isThin"
+    width="20"
+    height="20"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M0.428993 0.929039L14.5711 15.0712" stroke="black" />
+    <path d="M0.429039 15.0711L14.5712 0.928994" stroke="black" />
+  </svg>
+
+  <svg
+    v-else
     width="32"
     height="32"
     viewBox="0 0 32 32"
@@ -23,6 +36,10 @@ import { defineComponent } from 'vue';
 export default defineComponent({
   props: {
     isBlue: {
+      type: Boolean,
+      default: false,
+    },
+    isThin: {
       type: Boolean,
       default: false,
     },
