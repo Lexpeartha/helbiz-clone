@@ -65,19 +65,12 @@
 
       <teleport
         :disabled="!isAboutMenuOpen"
-        v-if="isAboutMenuOpen"
+        v-if="isAboutMenuInteractive"
         to="#fullscreen-window"
       >
-        <!-- <transition
-          enter-active-class="transform transition duration-300 ease-in-out"
-          enter-class="-translate-y-1/2 scale-y-0 opacity-0"
-          enter-to-class="translate-y-0 scale-y-100 opacity-100"
-          leave-active-class="transform transition duration-300 ease-in-out"
-          leave-class="translate-y-0 scale-y-100 opacity-100"
-          leave-to-class="-translate-y-1/2 scale-y-0 opacity-0"
-        >
-        </transition> -->
-        <AboutMenu @close="closeAboutMenu" v-if="isAboutMenuOpen" />
+        <transition appear name="slide">
+          <AboutMenu @close="closeAboutMenu" v-if="isAboutMenuOpen" />
+        </transition>
       </teleport>
 
       <teleport
@@ -120,12 +113,20 @@ export default defineComponent({
     const isAboutMenuOpen = ref(false);
     const isMobileNavOpen = ref(false);
 
+    const isAboutMenuInteractive = ref(false);
+
+    const activateAboutMenu = () => {
+      isAboutMenuInteractive.value = true;
+    };
+
     const openAboutMenu = () => {
       isAboutMenuOpen.value = true;
+      activateAboutMenu();
     };
 
     const closeAboutMenu = () => {
       isAboutMenuOpen.value = false;
+      activateAboutMenu();
     };
 
     const toggleAboutMenu = () => {
@@ -197,6 +198,7 @@ export default defineComponent({
     };
 
     return {
+      isAboutMenuInteractive,
       isAboutMenuOpen,
       isMobileNavOpen,
       openMobileNav,
@@ -210,4 +212,24 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.slide-enter-active {
+  animation: slide-from-top 0.3s;
+  animation-timing-function: ease-in-out;
+}
+
+.slide-leave-active {
+  animation: slide-from-top 0.3s reverse;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes slide-from-top {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+</style>
