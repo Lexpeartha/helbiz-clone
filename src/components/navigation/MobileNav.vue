@@ -1,15 +1,100 @@
 <template>
   <div class="bg-white pt-16 absolute top-0 left-0 h-screen w-screen z-40">
-    MobileNav test!
+    <div class="relative flex bg-gray-100">
+      <button @click="selectProduct" class="selection-button">
+        Our Product
+        <div v-if="isProductSelected" class="marker"></div>
+      </button>
+      <button @click="selectCompany" class="selection-button">
+        Our Company
+        <div v-if="!isProductSelected" class="marker"></div>
+      </button>
+    </div>
+    <ul v-if="isProductSelected" class="menu-list">
+      <li class="menu-link" v-for="(item, $i) in ourProductList" :key="$i">
+        <router-link to="/">{{ item }}</router-link>
+      </li>
+    </ul>
+    <ul class="menu-list" v-else>
+      <li class="menu-link" v-for="(item, $i) in ourCompanyList" :key="$i">
+        <router-link to="/">{{ item }}</router-link>
+      </li>
+    </ul>
+    <hr class="mx-5" />
+    <ul class="menu-list">
+      <li class="menu-link">
+        <router-link to="/">Privacy Policy</router-link>
+      </li>
+      <li class="menu-link">
+        <router-link to="/">Contact Us</router-link>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   setup() {
-    return {};
+    const isProductSelected = ref(true);
+
+    const selectProduct = () => {
+      isProductSelected.value = true;
+    };
+
+    const selectCompany = () => {
+      isProductSelected.value = false;
+    };
+
+    const ourProductList: string[] = [
+      'Mobility',
+      'Helbiz Kitchen',
+      'Helbiz Live',
+      'Investors',
+      'Unlimited',
+    ];
+
+    const ourCompanyList: string[] = [
+      'About',
+      'Company Info',
+      'Sustainability',
+      'Safety',
+      'Partners',
+      'Newsroom',
+      'Cities',
+      'Advertising',
+      'Support',
+    ];
+
+    return {
+      isProductSelected,
+      ourProductList,
+      ourCompanyList,
+      selectProduct,
+      selectCompany,
+    };
   },
 });
 </script>
+
+<style scoped>
+.selection-button {
+  @apply relative py-5 pl-5 font-semibold tracking-tight focus:outline-none;
+}
+
+.menu-list {
+  @apply space-y-6 p-5;
+}
+
+.menu-link {
+  @apply font-bold;
+}
+
+.marker {
+  @apply absolute bottom-0 border-t border-blue-500 border-2 w-4/5 pr-5;
+  /* position: relative;
+  transition: width 0.5s ease-in-out, left 0.5s ease-in-out;
+  bottom: 3px; */
+}
+</style>
