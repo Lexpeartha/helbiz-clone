@@ -7,8 +7,14 @@
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path d="M0.428993 0.929039L14.5711 15.0712" stroke="black" />
-    <path d="M0.429039 15.0711L14.5712 0.928994" stroke="black" />
+    <path
+      d="M0.428993 0.929039L14.5711 15.0712"
+      :stroke="isBlue ? blue500hex : 'black'"
+    />
+    <path
+      d="M0.429039 15.0711L14.5712 0.928994"
+      :stroke="isBlue ? blue500hex : 'black'"
+    />
   </svg>
 
   <svg
@@ -25,7 +31,7 @@
       clip-rule="evenodd"
       class="transition-all"
       d="M16.4957 12.253L6.24264 2L2 6.24264L12.253 16.4957L2 26.7487L6.24264 30.9914L16.4957 20.7383L26.7487 30.9914L30.9914 26.7487L20.7383 16.4957L30.9914 6.24264L26.7487 2L16.4957 12.253Z"
-      :fill="isBlue ? 'blue' : 'black'"
+      :fill="isBlue ? blue500hex : 'black'"
     />
   </svg>
 </template>
@@ -43,6 +49,11 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+  },
+  data() {
+    return {
+      blue500hex: '#3B82F6',
+    };
   },
 });
 </script>

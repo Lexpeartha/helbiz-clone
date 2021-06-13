@@ -23,12 +23,13 @@
           hidden
           lg:flex
           items-center
-          xl:gap-24
-          lg:gap-10
+          xl:gap-16
+          lg:gap-8
           tracking-wide
           uppercase
           font-normal
           text-xs
+          justify-self-end
         "
       >
         <a
@@ -41,7 +42,7 @@
         </a>
         <BaseButton>Login</BaseButton>
       </nav>
-      <div>
+      <div class="lg:hidden">
         <BaseButton
           class="justify-self-end mr-4 text-sm"
           v-if="isMobileNavOpen"
@@ -155,6 +156,13 @@ export default defineComponent({
           name: '',
         },
         text: 'Mobility',
+      },
+      {
+        route: {
+          path: '/',
+          name: '',
+        },
+        text: 'Helbiz Live',
       },
       {
         route: {
