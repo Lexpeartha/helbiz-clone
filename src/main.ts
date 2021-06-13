@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import './assets/tailwind.css';
+import 'animate.css';
 
 import upperFirst from 'lodash/upperFirst';
 import camelCase from 'lodash/camelCase';

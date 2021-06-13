@@ -10,16 +10,20 @@
         <div v-if="!isProductSelected" class="marker"></div>
       </button>
     </div>
-    <ul v-if="isProductSelected" class="menu-list">
-      <li class="menu-link" v-for="(item, $i) in ourProductList" :key="$i">
-        <router-link to="/">{{ item }}</router-link>
-      </li>
-    </ul>
-    <ul class="menu-list" v-else>
-      <li class="menu-link" v-for="(item, $i) in ourCompanyList" :key="$i">
-        <router-link to="/">{{ item }}</router-link>
-      </li>
-    </ul>
+
+    <transition name="fade" mode="out-in">
+      <ul v-if="isProductSelected" class="menu-list">
+        <li class="menu-link" v-for="(item, $i) in ourProductList" :key="$i">
+          <router-link to="/">{{ item }}</router-link>
+        </li>
+      </ul>
+      <ul class="menu-list" v-else>
+        <li class="menu-link" v-for="(item, $i) in ourCompanyList" :key="$i">
+          <router-link to="/">{{ item }}</router-link>
+        </li>
+      </ul>
+    </transition>
+
     <hr class="mx-5" />
     <ul class="menu-list">
       <li class="menu-link">
@@ -93,8 +97,29 @@ export default defineComponent({
 
 .marker {
   @apply absolute bottom-0 border-t border-blue-500 border-2 w-4/5 pr-5;
-  /* position: relative;
-  transition: width 0.5s ease-in-out, left 0.5s ease-in-out;
-  bottom: 3px; */
+}
+
+.fade-enter-active {
+  animation: fade 450ms;
+  animation-timing-function: ease-out;
+}
+
+.fade-leave-active {
+  animation: fade 450ms reverse;
+  animation-timing-function: ease-out;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  60% {
+    opacity: 0.4;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 </style>

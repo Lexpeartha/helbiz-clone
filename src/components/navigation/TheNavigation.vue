@@ -42,14 +42,17 @@
         </a>
         <BaseButton>Login</BaseButton>
       </nav>
-      <div class="lg:hidden">
-        <BaseButton
-          class="justify-self-end mr-4 text-sm"
-          v-if="isMobileNavOpen"
-        >
-          Login
-        </BaseButton>
-        <transition mode="out-in">
+      <div class="flex items-center lg:hidden">
+        <transition name="slide">
+          <BaseButton
+            class="justify-self-end mr-4 text-sm z-50"
+            v-if="isMobileNavOpen"
+          >
+            Login
+          </BaseButton>
+        </transition>
+
+        <transition name="fade" mode="out-in">
           <HamburgerIcon
             v-if="!isMobileNavOpen"
             class="block lg:hidden h-6 cursor-pointer z-50"
@@ -76,10 +79,12 @@
 
       <teleport
         :disabled="!isMobileNavOpen"
-        v-if="isMobileNavOpen"
+        v-if="isMobileNavInteractive"
         to="#fullscreen-window"
       >
-        <MobileNav @close="closeMobileNav" v-if="isMobileNavOpen" />
+        <transition appear name="slide">
+          <MobileNav @close="closeMobileNav" v-if="isMobileNavOpen" />
+        </transition>
       </teleport>
     </div>
   </header>
@@ -115,7 +120,7 @@ export default defineComponent({
     const isMobileNavOpen = ref(false);
 
     const isAboutMenuInteractive = ref(false);
-
+    const isMobileNavInteractive = ref(false);
     const activateAboutMenu = () => {
       isAboutMenuInteractive.value = true;
     };
@@ -134,12 +139,18 @@ export default defineComponent({
       isAboutMenuOpen.value ? closeAboutMenu() : openAboutMenu();
     };
 
+    const activateMobileNav = () => {
+      isMobileNavInteractive.value = true;
+    };
+
     const openMobileNav = () => {
       isMobileNavOpen.value = true;
+      activateMobileNav();
     };
 
     const closeMobileNav = () => {
       isMobileNavOpen.value = false;
+      activateMobileNav();
     };
 
     const closeAll = () => {
@@ -207,6 +218,7 @@ export default defineComponent({
 
     return {
       isAboutMenuInteractive,
+      isMobileNavInteractive,
       isAboutMenuOpen,
       isMobileNavOpen,
       openMobileNav,
@@ -222,12 +234,22 @@ export default defineComponent({
 
 <style scoped>
 .slide-enter-active {
-  animation: slide-from-top 0.3s;
+  animation: slide-from-top 400ms;
   animation-timing-function: ease-in-out;
 }
 
 .slide-leave-active {
-  animation: slide-from-top 0.3s reverse;
+  animation: slide-from-top 400ms reverse;
+  animation-timing-function: ease-in-out;
+}
+
+.fade-enter-active {
+  animation: fade 150ms;
+  animation-timing-function: ease-in-out;
+}
+
+.fade-leave-active {
+  animation: fade 150ms reverse;
   animation-timing-function: ease-in-out;
 }
 
@@ -238,6 +260,16 @@ export default defineComponent({
 
   100% {
     transform: translateY(0);
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }
 </style>
