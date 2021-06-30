@@ -1,14 +1,18 @@
 <template>
   <div class="bg-white pt-16 absolute top-0 left-0 h-screen w-screen z-40">
-    <div class="relative flex bg-gray-100">
-      <button @click="selectProduct" class="selection-button">
-        Our Product
-        <div v-if="isProductSelected" class="marker"></div>
-      </button>
-      <button @click="selectCompany" class="selection-button">
-        Our Company
-        <div v-if="!isProductSelected" class="marker"></div>
-      </button>
+    <div class="relative bg-gray-100">
+      <div class="inline-block">
+        <button @click="selectProduct" class="selection-button">
+          Our Product
+        </button>
+        <button @click="selectCompany" class="selection-button">
+          Our Company
+        </button>
+        <hr
+          :style="`margin-left: ${isProductSelected ? '2' : '15'}%`"
+          class="marker transition-all duration-500 ease-in-out"
+        />
+      </div>
     </div>
 
     <transition name="fade" mode="out-in">
@@ -84,7 +88,9 @@ export default defineComponent({
 
 <style scoped>
 .selection-button {
-  @apply relative py-5 pl-5 font-semibold tracking-tight focus:outline-none;
+  /* Equavalent of w-28 */
+  min-width: 7rem;
+  @apply py-5 pl-5 font-semibold tracking-tight focus:outline-none;
 }
 
 .menu-list {
@@ -96,7 +102,7 @@ export default defineComponent({
 }
 
 .marker {
-  @apply absolute bottom-0 border-t border-blue-500 border-2 w-4/5 pr-5;
+  @apply absolute bottom-0 border-t border-blue-500 border-2 w-24 px-5;
 }
 
 .fade-enter-active {
